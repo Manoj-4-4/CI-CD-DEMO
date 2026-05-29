@@ -1,9 +1,8 @@
-name: CI pipeline
+name: Deploy HTML to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
 
 jobs:
   deploy:
@@ -15,13 +14,16 @@ jobs:
       id-token: write
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Setup python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.10"
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
 
-      - name: Run script
-        run: python app.py
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
