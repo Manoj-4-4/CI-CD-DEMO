@@ -1,4 +1,4 @@
-name: Deploy Static HTML
+name: CI pipeline
 
 on:
   push:
@@ -18,13 +18,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Setup python
+        uses: actions/setup-python@v5
         with:
-          path: .
+          python-version: "3.10"
 
-      - name: Deploy
-        uses: actions/deploy-pages@v4
+      - name: Run script
+        run: python app.py
